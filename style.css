@@ -69,6 +69,7 @@ h1 {
 }
 
 .inputBox input,.inputBox select {
+    width: 100%;
     padding: 12px;
     border: none;
     border-radius: 8px;
@@ -100,12 +101,12 @@ h1 {
 }
 
 .stats {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
 .statBox {
-    flex: 1;
     background: #0d1117;
     padding: 15px;
     border-radius: 10px;
@@ -134,4 +135,18 @@ h1 {
     height: 100%;
     width: 0%;
     background: #2ea043;
+}
+
+@media (max-width: 600px){
+    .inputBox{
+        grid-template-columns: 1fr;
+    }
+
+    button{
+        grid-column: span 1;
+    }
+
+    .stats{
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
