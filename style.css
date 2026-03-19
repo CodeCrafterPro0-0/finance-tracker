@@ -1,0 +1,137 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0d1117, #0a0f14) ;
+    color: #e6edf3;
+    font-family: system-ui, sans-serif;
+}
+
+.main {
+    max-width: 600px;
+    margin:40px auto;
+    padding: 20px;
+    background: #11161c;
+    border-radius: 16px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+}
+
+.hidden {
+    display: none;
+}
+
+.menuButton {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -200%;
+    width: 200px;
+    height: 100%;
+    background: #161b22;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+#sidebar.open{
+    left: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #58a6ff;
+    padding: 20px;
+}
+
+.card {
+    background: #161b22;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.inputBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.inputBox input,.inputBox select {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+}
+
+.inputBox button {
+    grid-column: span 2;
+    padding: 12px;
+    background: #238636;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.inputBox button:hover {
+    background: #2ea043;
+}
+
+.filters {
+    margin-bottom: 15px;
+}
+
+.filters select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.stats {
+    display: flex;
+    gap: 10px;
+}
+
+.statBox {
+    flex: 1;
+    background: #0d1117;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.income {
+    background: rgba(35, 134, 54, 0.2);
+}
+
+.expanse {
+    background: rgba(218, 54, 51, 0.2);
+}
+
+.savings {
+    background: #2c2c8b;
+}
+
+.progressBar {
+    height: 20px;
+    background: #30363d;
+    border-radius: 10px;
+}
+
+#progress {
+    height: 100%;
+    width: 0%;
+    background: #2ea043;
+}

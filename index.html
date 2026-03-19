@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>finance Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="main">
+    
+        <div class="menuButton" onclick="toggleMenu()">≣</div>
+
+        <div id="sidebar">
+            <h2>Menu</h2>
+            <button onclick="showPage('home')">Home</button>
+            <button onclick="showPage('transactions')">Transaction</button>
+            <button onclick="showPage('savings')">Savings</button>
+        </div>
+
+    <div class="container page " id="homePage">
+
+            <!-- menu -->
+
+            <!-- HOME PAGE -->
+
+        <h1>💰 Finance Tracker</h1>
+
+            <!-- INPUT -->
+        <div class="card inputBox">
+            <select id="type">
+                <option value="" disabled selected hidden>Select Type</option>
+                <option value="income" >Income</option>
+                <option value="expense">Expense</option>
+                <option value="savings">Savings</option>
+            </select>
+
+            <input id="amount" type="number" placeholder="Enter Amount">
+
+            <input id="category" type="text" placeholder="category (Food, Salary)">
+
+            <select id="day"></select>
+            <select id="month"></select>
+            <select id="year"></select>
+
+            <button onclick="addEntry()">Add</button>
+        </div>
+
+            <!-- STATS -->
+        <div class="card stats">
+            <div class="statBox">
+                <h3>Income</h3>
+                <p id="income">0</p>
+            </div>
+
+            <div class="statBox">
+                <h3>Expense</h3>
+                <p id="expense">0</p>
+            </div>
+
+            <div class="statBox">
+                <h3>Balance</h3>
+                <p id="balance">0</p>
+            </div>
+
+            <div class="statBox">
+                <h3>Savings</h3>
+                <p id="savings">0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container page hidden" id="transactionPage">
+        <h1>Transactions</h1>
+        <ul id="history"></ul>
+    </div>
+
+    <div class="container page hidden" id="savingsPage">
+
+        <h1>Savings</h1>
+
+        <input type="number" id="goalInput" placeholder="Set Goal ₹">
+        <button onclick="setGoal()">Set Goal</button>
+
+        <p>Goal: ₹<span id="goal">0</span></p>
+        <p>Saved: ₹<span id="saved">0</span></p>
+        <p>Remaing: ₹<span id="remaining">0</span></p>
+
+        <div class="progressBar">
+            <div id="progress"></div>
+        </div>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>
