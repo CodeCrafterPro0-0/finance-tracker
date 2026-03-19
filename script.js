@@ -71,7 +71,10 @@ function addEntry() {
     let category = el.category.value;
     const date = `${el.day.value}-${el.month.value}-${el.year.value}`;
 
-    if(!amount) return;
+    if(!type || !amount){
+        alert("Please fill all fields");
+        return;
+    }
 
     if(type === "savings"){
         category = "savings";

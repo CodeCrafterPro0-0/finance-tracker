@@ -8,10 +8,12 @@ body {
     background: linear-gradient(135deg, #0d1117, #0a0f14) ;
     color: #e6edf3;
     font-family: system-ui, sans-serif;
+    overflow-x: hidden;
 }
 
 .main {
     max-width: 600px;
+    width: 95%;
     margin:40px auto;
     padding: 20px;
     background: #11161c;
@@ -31,17 +33,22 @@ body {
     left: 20px;
     font-size: 24px;
     cursor: pointer;
+    z-index: 1000;
 }
 
 #sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     position: fixed;
     top: 0;
     left: -200%;
     width: 200px;
-    height: 100%;
-    background: #161b22;
+    height: 200px;
+    background: transparent;
     padding: 20px;
-    transition: 0.3s;
+    transition:left 0.3s ease;
 }
 
 #sidebar.open{
@@ -117,7 +124,7 @@ h1 {
     background: rgba(35, 134, 54, 0.2);
 }
 
-.expanse {
+.expense {
     background: rgba(218, 54, 51, 0.2);
 }
 
