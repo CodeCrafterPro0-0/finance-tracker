@@ -13,7 +13,9 @@ const el = Object.freeze({
     month: document.getElementById("month"),
     year: document.getElementById("year"),
     
+    goalNameInput: document.getElementById("goalNameInput"),
     goalInput: document.getElementById("goalInput"),
+    goalTitle: document.getElementById("goalTitle"),
     goal: document.getElementById("goal"),
     saved: document.getElementById("saved"),
     remaining: document.getElementById("remaining"),
@@ -25,6 +27,7 @@ const el = Object.freeze({
 
 let data = JSON.parse(localStorage.getItem("finance")) || [] ;
 
+let goalName = localStorage.getItem("goalName") || "";
 let goal = Number(localStorage.getItem("goal")) || 0;
 let saved = Number(localStorage.getItem("saved")) || 0;
 
@@ -100,7 +103,10 @@ function addEntry() {
 function setGoal() {
     goal = Number(el.goalInput.value);
 
+    const goalName = el.goalNameInput.value || "Unnamed Goal";
+
     localStorage.setItem("goal", goal);
+    localStorage.setItem("goalName", goalName);
 
     updateUI();
 }
@@ -110,6 +116,7 @@ function updateUI() {
     let expense = 0;
     
     el.history.innerHTML = "";
+    el.goalTitle.innerText = goalName ? `🎯 saving for: ${goalName}` : "No goal set yet";
 
     data.forEach(entry => {
         if(entry.type === "income"){
@@ -122,7 +129,15 @@ function updateUI() {
         let li = document.createElement("li");
             li.className = entry.type;
 
-            li.innerText = `${entry.date} | ${entry.category} | ${entry.amount}`;
+            li.innerHTML = `
+            <div class="left">
+                <span class="date">${entry.date}</span>
+                <span class="category">${entry.category}</span>
+            </div>
+            <div class="right">
+                ₹${entry.amount}
+            </div>
+            `;
 
             el.history.appendChild(li);
     });
@@ -138,6 +153,12 @@ function updateUI() {
     let percent = goal ? (saved/goal) * 100 : 0;
 
     el.progress.style.width = percent + "%";
+
+    document.getElementById("progressText").innerText = Math.floor(percent) + "% completed";
+
+    if (percent >= 100){
+        el.progress.style.background = "#ffd700";
+    }
 }
 
 loadDateInput();

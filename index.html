@@ -77,15 +77,37 @@
 
         <h1>Savings</h1>
 
-        <input type="number" id="goalInput" placeholder="Set Goal ₹">
-        <button onclick="setGoal()">Set Goal</button>
+        <div class="card savingsCard">
+            <div class="goalBox">
+                <input type="text" id="goalNameInput" placeholder="Goal(e.g. Travel)">
+                <input type="number" id="goalInput" placeholder="Set Goal Amount">
+                <button onclick="setGoal()">Set</button>
+            </div>
 
-        <p>Goal: ₹<span id="goal">0</span></p>
-        <p>Saved: ₹<span id="saved">0</span></p>
-        <p>Remaing: ₹<span id="remaining">0</span></p>
+            <p class="goalTitle" id="goalTitle">NO goal set</p>
 
-        <div class="progressBar">
-            <div id="progress"></div>
+            <div class="summary">
+                <div>
+                    <span>Goal</span>
+                    <p>₹<span id="goal">0</span></p>
+                </div>
+
+                <div>
+                    <span>Saved</span>
+                    <p>₹<span id="saved">0</span></p>
+                </div>
+
+                <div>
+                    <span>Remaining</span>
+                    <p>₹<span id="remaining">0</span></p>
+                </div>
+            </div>
+
+            <div class="progressBar">
+                <div id="progress"></div>
+            </div>
+
+            <p id="progressText" class="progressText">0% completed</p>
         </div>
     </div>
 </div>
