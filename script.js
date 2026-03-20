@@ -23,6 +23,10 @@ const el = Object.freeze({
     
     pages: document.querySelectorAll(".page"),
     sidebar: document.getElementById("sidebar"),
+
+    confirmModal: document.getElementById("confirmModal"),
+    confirmYes: document.getElementById("confirmYes"),
+    confirmNo: document.getElementById("confirmNo")
 });
 
 let data = JSON.parse(localStorage.getItem("finance")) || [] ;
@@ -30,6 +34,8 @@ let data = JSON.parse(localStorage.getItem("finance")) || [] ;
 let goalName = localStorage.getItem("goalName") || "";
 let goal = Number(localStorage.getItem("goal")) || 0;
 let saved = Number(localStorage.getItem("saved")) || 0;
+
+let deleteIndex = null;
 
 function toggleMenu(){
     el.sidebar.classList.toggle("open");
@@ -136,7 +142,7 @@ function updateUI() {
             </div>
             <div class="right">
                 ₹${entry.amount}
-                <button class="deleteBtn" onClick="deleteEntry(${index})">❌</button>
+                <button class="deleteBtn" onClick="openDeleteModal(${index})">❌</button>
             </div>
             `;
 
@@ -164,13 +170,37 @@ function updateUI() {
 
 function deleteEntry(index) {
     if(!confirm("Delete this transaction?")) return;
-    
+
     data.splice(index, 1);
 
     localStorage.setItem("finance", JSON.stringify(data));
 
     updateUI();
 }
+
+function openDeleteModal(index) {
+    deleteIndex = index;
+
+    el.confirmModal.classList.remove("hidden");
+}
+
+el.confirmYes.onclick = () => {
+    if(deleteIndex !== null) {
+        data.splice(deleteIndex, 1);
+
+        localStorage.setItem("finance", JSON.stringify(data));
+
+        updateUI();
+    }
+
+    el.confirmModal.classList.add("hidden");
+    deleteIndex = null;
+};
+
+el.confirmNo.onclick = () => {
+    confirmModal.classList.add("hidden");
+    deleteIndex = null;
+};
 
 loadDateInput();
 updateUI();
