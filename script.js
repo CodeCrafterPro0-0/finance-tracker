@@ -4,7 +4,7 @@ const el = Object.freeze({
     balance: document.getElementById("balance"),
     
     history: document.getElementById("history"),
-    
+
     type: document.getElementById("type"),
     amount: document.getElementById("amount"),
     category: document.getElementById("category"),
@@ -118,7 +118,7 @@ function updateUI() {
     el.history.innerHTML = "";
     el.goalTitle.innerText = goalName ? `🎯 saving for: ${goalName}` : "No goal set yet";
 
-    data.forEach(entry => {
+    data.forEach((entry, index) => {
         if(entry.type === "income"){
             income += entry.amount;
         }
@@ -136,6 +136,7 @@ function updateUI() {
             </div>
             <div class="right">
                 ₹${entry.amount}
+                <button class="deleteBtn" onClick="deleteEntry(${index})">❌</button>
             </div>
             `;
 
@@ -159,6 +160,16 @@ function updateUI() {
     if (percent >= 100){
         el.progress.style.background = "#ffd700";
     }
+}
+
+function deleteEntry(index) {
+    if(!confirm("Delete this transaction?")) return;
+    
+    data.splice(index, 1);
+
+    localStorage.setItem("finance", JSON.stringify(data));
+
+    updateUI();
 }
 
 loadDateInput();
