@@ -110,7 +110,7 @@ function addEntry() {
     }
 
     if(editIndex !== null){
-        if(date[editIndex].type === "savings"){
+        if(data[editIndex].type === "savings"){
             saved -= data[editIndex].amount;
         }
 
@@ -136,15 +136,6 @@ function addEntry() {
     if(type === "savings") {
         saved += amount;
         localStorage.setItem("saved", saved);
-    }
-
-    if(editIndex !== null){
-        data[editIndex] = {type, amount, category, date};
-        editIndex = null;
-
-        document.querySelector(".inputBox button").innerText = "Add";
-    } else {
-        data.push({type, amount, category, date});
     }
 
     localStorage.setItem("finance", JSON.stringify(data));
