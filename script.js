@@ -185,8 +185,6 @@ function updateUI() {
         el.progress.style.background = "#ffd700";
     }
 
-    const savedPage = localStorage.getItem("currentPage") || "home";
-    showPage(savedPage);
     
 }
 
@@ -215,4 +213,8 @@ el.confirmNo.onclick = () => {
 };
 
 loadDateInput();
+
+const savedPage = localStorage.getItem("currentPage") || "home";
+    
+showPage(savedPage);
 updateUI();
