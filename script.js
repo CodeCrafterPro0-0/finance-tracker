@@ -39,6 +39,7 @@ let goalName = localStorage.getItem("goalName") || "";
 let goal = Number(localStorage.getItem("goal")) || 0;
 let saved = Number(localStorage.getItem("saved")) || 0;
 
+let editIndex = null;
 let deleteIndex = null;
 
 function toggleMenu(){
@@ -105,7 +106,9 @@ function addEntry() {
 
     if(type === "savings"){
         category = "savings";
-        saved += amount;
+        if(editIndex === null){
+            saved += amount;
+        }
         localStorage.setItem("saved", saved);
     }
 
@@ -114,7 +117,14 @@ function addEntry() {
         return;
     }
 
-    data.push({type, amount, category, date});
+    if(editEntry !== null){
+        data[editIndex] = {type, amount, category, date};
+        editIndex = null;
+
+        document.querySelector(".inputBox button").innerText = "Add";
+    } else {
+        data.push({type, amount, category, date});
+    }
 
     localStorage.setItem("finance", JSON.stringify(data));
 
@@ -159,6 +169,7 @@ function updateUI() {
                 <span class="bottomRow">
                     <span class="category">${entry.category}</span>
                     <span class="amount">₹${entry.amount}</span>
+                    <button class="editBtn" onclick="editEntry(${index})">🖋️</button>
                     <button class="deleteBtn" onClick="openDeleteModal(${index})">❌</button>
                 </span>
             </div>
@@ -186,6 +197,26 @@ function updateUI() {
     }
 
     
+}
+
+function editEntry(index) {
+    const entry = data[index];
+
+    el.type.value = entry.type;
+    el.amount.value = entry.amount;
+    el.category.value = entry.category;
+
+    const [day, month, year] = entry.date.split("-");
+
+    el.day.value = day;
+    el.month.value = month;
+    el.year.value = year;
+
+    editIndex = index;
+
+    document.querySelector(".inputBox button").innerText = "Update";
+
+    showPage("home");
 }
 
 function openDeleteModal(index) {
