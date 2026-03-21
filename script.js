@@ -104,20 +104,41 @@ function addEntry() {
         return;
     }
 
-    if(type === "savings"){
-        category = "savings";
-        if(editIndex === null){
-            saved += amount;
-        }
-        localStorage.setItem("saved", saved);
-    }
-
     if(type !== "savings" && category && category.toLowerCase() === "savings"){
         showError("❌ Savings category only allowed in Savings type");
         return;
     }
 
-    if(editEntry !== null){
+    if(editIndex !== null){
+        if(date[editIndex].type === "savings"){
+            saved -= data[editIndex].amount;
+        }
+
+        data[editIndex] = {
+            type,
+            amount,
+            category: type === "savings" ? "savings" : category,
+            date
+        };
+
+        editIndex = null;
+
+        document.querySelector(".inputBox button").innerText = "Add";
+    } else {
+        data.push({
+            type,
+            amount,
+            category: type === "savings" ? "savings" : category,
+            date
+        });
+    }
+
+    if(type === "savings") {
+        saved += amount;
+        localStorage.setItem("saved", saved);
+    }
+
+    if(editIndex !== null){
         data[editIndex] = {type, amount, category, date};
         editIndex = null;
 
@@ -248,4 +269,3 @@ loadDateInput();
 const savedPage = localStorage.getItem("currentPage") || "home";
     
 showPage(savedPage);
-updateUI();
