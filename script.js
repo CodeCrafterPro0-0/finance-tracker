@@ -12,6 +12,8 @@ const el = Object.freeze({
     day: document.getElementById("day"),
     month: document.getElementById("month"),
     year: document.getElementById("year"),
+
+    formError: document.getElementById("formError"),
     
     goalNameInput: document.getElementById("goalNameInput"),
     goalInput: document.getElementById("goalInput"),
@@ -74,6 +76,16 @@ function loadDateInput() {
     }
 }
 
+function showError(message) {
+    el.formError.innerText = message;
+
+    el.formError.classList.remove("hidden");
+
+    setTimeout(() => {
+        el.formError.classList.add("hidden");
+    }, 2000);
+}
+
 function addEntry() {
     const type = el.type.value;
     const amount = Number(el.amount.value);
@@ -81,7 +93,7 @@ function addEntry() {
     const date = `${el.day.value}-${el.month.value}-${el.year.value}`;
 
     if(!type || !amount){
-        alert("Please fill all fields");
+        showError("Please fill all fields");
         return;
     }
 
@@ -92,7 +104,7 @@ function addEntry() {
     }
 
     if(type !== "savings" && category.toLowerCase() === "savings"){
-        alert("❌ Savings category only allowed in Savings type");
+        showError("❌ Savings category only allowed in Savings type");
         return;
     }
 

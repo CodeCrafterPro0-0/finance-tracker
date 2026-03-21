@@ -78,6 +78,13 @@ h1 {
     border-radius: 8px;
 }
 
+.formError {
+    color: #ff7b72;
+    font-size: 20px;
+    grid-column: span 2;
+    margin-top: -5px;
+}
+
 .inputBox button {
     grid-column: span 2;
     padding: 12px;
@@ -319,6 +326,10 @@ li.savings .right {
 @media (max-width: 600px){
     .inputBox{
         grid-template-columns: 1fr;
+    }
+
+    .formError {
+        grid-column: span 1;
     }
 
     button{
