@@ -33,6 +33,8 @@ const el = Object.freeze({
 
 let data = JSON.parse(localStorage.getItem("finance")) || [] ;
 
+let errorTimeout;
+
 let goalName = localStorage.getItem("goalName") || "";
 let goal = Number(localStorage.getItem("goal")) || 0;
 let saved = Number(localStorage.getItem("saved")) || 0;
@@ -49,6 +51,8 @@ function showPage(page) {
     if(page === "home") document.getElementById("homePage").classList.remove("hidden");
     if(page === "transactions") document.getElementById("transactionPage").classList.remove("hidden");
     if(page === "savings") document.getElementById("savingsPage").classList.remove("hidden");
+
+    localStorage.setItem("currentPage", page);
 
     el.sidebar.classList.remove("open");
     updateUI();
@@ -81,7 +85,9 @@ function showError(message) {
 
     el.formError.classList.remove("hidden");
 
-    setTimeout(() => {
+    clearTimeout(errorTimeout);
+
+    errorTimeout = setTimeout(() => {
         el.formError.classList.add("hidden");
     }, 2000);
 }
@@ -103,7 +109,7 @@ function addEntry() {
         localStorage.setItem("saved", saved);
     }
 
-    if(type !== "savings" && category.toLowerCase() === "savings"){
+    if(type !== "savings" && category && category.toLowerCase() === "savings"){
         showError("❌ Savings category only allowed in Savings type");
         return;
     }
@@ -121,7 +127,7 @@ function addEntry() {
 function setGoal() {
     goal = Number(el.goalInput.value);
 
-    const goalName = el.goalNameInput.value || "Unnamed Goal";
+    goalName = el.goalNameInput.value || "Unnamed Goal";
 
     localStorage.setItem("goal", goal);
     localStorage.setItem("goalName", goalName);
@@ -150,11 +156,11 @@ function updateUI() {
             li.innerHTML = `
             <div class="left">
                 <span class="date">${entry.date}</span>
-                <span class="category">${entry.category}</span>
-            </div>
-            <div class="right">
-                ₹${entry.amount}
-                <button class="deleteBtn" onClick="openDeleteModal(${index})">❌</button>
+                <span class="bottomRow">
+                    <span class="category">${entry.category}</span>
+                    <span class="amount">₹${entry.amount}</span>
+                    <button class="deleteBtn" onClick="openDeleteModal(${index})">❌</button>
+                </span>
             </div>
             `;
 
@@ -167,7 +173,7 @@ function updateUI() {
 
     el.goal.innerText = goal;
     el.saved.innerText = saved;
-    el.remaining.innerText = goal - saved;
+    el.remaining.innerText = Math.max(goal - saved, 0);
 
     let percent = goal ? (saved/goal) * 100 : 0;
 
@@ -178,16 +184,10 @@ function updateUI() {
     if (percent >= 100){
         el.progress.style.background = "#ffd700";
     }
-}
 
-function deleteEntry(index) {
-    if(!confirm("Delete this transaction?")) return;
-
-    data.splice(index, 1);
-
-    localStorage.setItem("finance", JSON.stringify(data));
-
-    updateUI();
+    const savedPage = localStorage.getItem("currentPage") || "home";
+    showPage(savedPage);
+    
 }
 
 function openDeleteModal(index) {
@@ -210,7 +210,7 @@ el.confirmYes.onclick = () => {
 };
 
 el.confirmNo.onclick = () => {
-    confirmModal.classList.add("hidden");
+    el.confirmModal.classList.add("hidden");
     deleteIndex = null;
 };
 

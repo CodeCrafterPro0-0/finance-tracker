@@ -80,7 +80,7 @@ h1 {
 
 .formError {
     color: #ff7b72;
-    font-size: 20px;
+    font-size: 13px;
     grid-column: span 2;
     margin-top: -5px;
 }
@@ -215,6 +215,14 @@ h1 {
 .left {
     display: flex;
     flex-direction: column;
+    gap: 6px;
+}
+
+.bottomRow {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .category {
@@ -222,15 +230,23 @@ h1 {
     font-size: 14px;
 }
 
+.amount {
+    margin-left: auto;
+    font-weight: bold;
+}
+
 .date {
     font-size: 16px;
     color: #8b949e;
 }
-
+/* 
 .right {
+    display: flex;
+    align-items: center;
+    gap: 8;
     font-weight: bold;
     font-size: 14px;
-}
+} */
 
 li.income .right {
     color: #2ea043;
